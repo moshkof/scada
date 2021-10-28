@@ -1,12 +1,9 @@
 # demo: механизм ответа modbus_tcp
 import modbus_tk.defines as md
 import modbus_tk.modbus_tcp as mt
-import asyncio
 import tracemalloc
 
-
-
-
+ 
 class ConfigModbus(object):
     host = "192.168.19.35"
     port = 502
@@ -14,17 +11,17 @@ class ConfigModbus(object):
 
 # Создать объект подключения
 master = mt.TcpMaster(ConfigModbus.host, ConfigModbus.port)
-master.set_timeout(2.0)
+master.set_timeout(2.5)
 
-print('соединение успешно')
+print('соединение успешно установлено ')
 
 try:
     # master.execute удаленно подключиться к серверу
     # Определить, нормальная ли ссылка
     
     tracemalloc.start()
-    START_POS = 1  # отправная точка
-    MAX_LENGTH = 10  # Количество цифр
+    START_POS =0 # отправная точка
+    MAX_LENGTH = 100 # Количество цифр
     # md.READ_HOLDING_REGISTERS # Modbus чтение регистра временного хранения 3
     def read_holding_regist():
         for i in range(1, 50):
@@ -40,10 +37,10 @@ try:
                 print(i, e)
                 continue
 
-    read_holding_regist()
-    
-    print("Конец программы")
-
 
 except Exception as e:
     print("error:", e)
+
+if __name__ == "__main__":
+    read_holding_regist()
+    print("Конец программы")
