@@ -21,16 +21,21 @@ try:
     
     tracemalloc.start()
     START_POS =0 # отправная точка
-    MAX_LENGTH = 100 # Количество цифр
+    MAX_LENGTH = 16 # Количество цифр
+    Result = []
     # md.READ_HOLDING_REGISTERS # Modbus чтение регистра временного хранения 3
     def read_holding_regist():
-        for i in range(1, 50):
+        for i in range(10, 13):
             # await asyncio.sleep(1)
             try:
+                
+                if i == 11:
+                    pass
                 Hold_value = master.execute(slave=i, function_code=md.READ_HOLDING_REGISTERS, starting_address=START_POS,
                                     quantity_of_x=MAX_LENGTH)
                 # coils_value = master.execute(slave=i, function_code=md.READ_COILS, starting_address=START_POS, quantity_of_x=MAX_LENGTH)
-                
+                Result.append(i)
+                Result.append(Hold_value)
                 print(i, Hold_value)
                 # print(coils_value)
             except Exception as e:
@@ -40,7 +45,9 @@ try:
 
 except Exception as e:
     print("error:", e)
+    
 
 if __name__ == "__main__":
     read_holding_regist()
     print("Конец программы")
+    print(Result)
