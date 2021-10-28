@@ -25,8 +25,8 @@ try:
     Result = []
     # md.READ_HOLDING_REGISTERS # Modbus чтение регистра временного хранения 3
     def read_holding_regist():
-        f = open('text.txt', 'a')
-        for i in range(10, 13):
+        f = open('text.txt', 'w')
+        for i in range(1, 50):
             # await asyncio.sleep(1)
             try:
                 
@@ -37,7 +37,7 @@ try:
                 # coils_value = master.execute(slave=i, function_code=md.READ_COILS, starting_address=START_POS, quantity_of_x=MAX_LENGTH)
                 Result.append(i)
                 Result.append(Hold_value)
-                f.write(str(Hold_value) + '\n')
+                f.write(str(i) + str(Hold_value) + '\n')
                 print(i, Hold_value)
                 # print(coils_value)
             except Exception as e:
